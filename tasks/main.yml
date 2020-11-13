@@ -1,0 +1,8 @@
+---
+# tasks file for role_apache2/
+- name: Pre installation tasks
+  include: 10_pre.yml
+
+- name: Install packages and configure files in OS.
+  include: 20_os.yml
+

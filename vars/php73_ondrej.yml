@@ -1,0 +1,21 @@
+role_app_apache2_ondrej_php_packages:
+  "bcmath_73": php7.3-bcmath
+  "bz2_73": php7.3-bz2
+  "cli_73": php7.3-cli
+  "common_73": php7.3-common
+  "curl_73": php7.3-curl
+  "fpm_73": php7.3-fpm
+  "gd_73": php7.3-gd
+  "imap_73": php7.3-imap
+  "intl_73": php7.3-intl
+  "json_73": php7.3-json
+  "ldap_73": php7.3-ldap
+  "mbstring_73": php7.3-mbstring
+  "mysql_73": php7.3-mysql
+  "opcache_73": php7.3-opcache
+  "readline_73": php7.3-readline
+  "soap_73": php7.3-soap
+  "sqlite3_73": php7.3-sqlite3
+  "tidy_73": php7.3-tidy
+  "xml_73": php7.3-xml
+  "zip_73": php7.3-zip

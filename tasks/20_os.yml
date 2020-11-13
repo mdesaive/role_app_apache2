@@ -1,0 +1,32 @@
+- name:
+  package:
+    name: '{{ item }}'
+    state: present
+  loop: '{{ role_app_apache2_packages }}'
+
+- name: Install Apache Modules
+  package:
+    name: '{{ item }}'
+    state: present
+  loop:
+    - '{{ role_app_apache2_mod_packages["ModSecurity"] }}'
+    - '{{ role_app_apache2_mod_packages["PHP_7.3"] }}'
+
+- name: Install Apache MPM Modules
+  package:
+    name: '{{ item }}'
+    state: present
+  loop:
+    - '{{ role_app_apache2_mpm_packages["MPM_ITK"] }}'
+
+- name: Install PHP Modules
+  package:
+    name: '{{ item.value }}'
+    state: present
+  loop: '{{ role_app_apache2_php_packages | dict2items }}'
+
+- name: MySQL Client
+  package:
+    name: '{{ role_app_apache2_mysql_client_package }}'
+    state: present
+

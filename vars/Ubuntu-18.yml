@@ -1,0 +1,54 @@
+role_app_apache2_service: apache2
+role_app_apache2_packages:
+  - apache2
+  - apachetop
+role_app_apache2_mod_packages:
+  "ModSecurity": libapache2-mod-security2
+  "PHP_7.3": libapache2-mod-php7.3
+role_app_apache2_mpm_packages:
+  "MPM_ITK": libapache2-mpm-itk
+# role_app_apache2_php_version: "7.2"
+role_app_apache2_mysql_client_package: mysql-client
+role_app_apache2_php_packages:
+  "cli": php-cli
+  "common": php-common
+  "auth-sasl": php-auth-sasl
+  "curl": php-curl
+  "gd": php-gd
+  "imap": php-imap
+  "mail-mime": php-mail-mime
+  "mbstring": php-mbstring
+  "mysql": php-mysql
+  "net-dime": php-net-dime
+  "net-sieve": php-net-sieve
+  "net-smtp": php-net-smtp
+  "net-socket": php-net-socket
+  "net-url": php-net-url
+  "net-url2": php-net-url2
+  "pear": php-pear
+  "soap": php-soap
+  "sqlite3": php-sqlite3
+  "xml": php-xml
+  "zip": php-zip
+
+role_app_apache2_ondrej_php73_packages:
+  "bcmath_73": php7.3-bcmath
+  "bz2_73": php7.3-bz2
+  "cli_73": php7.3-cli
+  "common_73": php7.3-common
+  "curl_73": php7.3-curl
+  "fpm_73": php7.3-fpm
+  "gd_73": php7.3-gd
+  "imap_73": php7.3-imap
+  "intl_73": php7.3-intl
+  "json_73": php7.3-json
+  "ldap_73": php7.3-ldap
+  "mbstring_73": php7.3-mbstring
+  "mysql_73": php7.3-mysql
+  "opcache_73": php7.3-opcache
+  "readline_73": php7.3-readline
+  "soap_73": php7.3-soap
+  "sqlite3_73": php7.3-sqlite3
+  "tidy_73": php7.3-tidy
+  "xml_73": php7.3-xml
+  "zip_73": php7.3-zip

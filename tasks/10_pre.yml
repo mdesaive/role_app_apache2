@@ -1,0 +1,49 @@
+
+- name: Gather OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version}}.yml" # For OpenSuSE Leap ansible_distribution_major_version is NA
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+    - "{{ ansible_distribution }}.yml"
+
+- name: Merge PHP 7.3 PHP package names
+  set_fact:
+    role_app_apache2_php_packages: '{{ role_app_apache2_php_packages | combine(role_app_apache2_ondrej_php73_packages) }}'
+
+- name: debug
+  debug:
+    var: '{{ role_app_apache2_php_packages }}'
+
+- block:
+    - name: Prepare value for Debian repository distribution release
+      set_fact:
+        role_app_apache2_tmp_apt_distrocodename: "{{ ansible_distribution_release }}"
+      when: ansible_os_family == "Debian"
+
+    - name: debug
+      debug:
+        var: '{{ role_app_apache2_tmp_apt_distrocodename }}'
+
+    - name: Attach to PHP 7.3 Repository
+      import_role:
+        name: role_mod_repositories
+      vars:
+        - role_mod_repositories_apt_keyfile_contents:
+            - keyname: MySQL Community Repo
+              data: |
+                -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+                mI0ESX35nAEEALKDCUDVXvmW9n+T/+3G1DnTpoWh9/1xNaz/RrUH6fQKhHr568F8
+                hfnZP/2CGYVYkW9hxP9LVW9IDvzcmnhgIwK+ddeaPZqh3T/FM4OTA7Q78HSvR81m
+                Jpf2iMLm/Zvh89ZsmP2sIgZuARiaHo8lxoTSLtmKXsM3FsJVlusyewHfABEBAAG0
+                H0xhdW5jaHBhZCBQUEEgZm9yIE9uZMWZZWogU3Vyw72ItgQTAQIAIAUCSX35nAIb
+                AwYLCQgHAwIEFQIIAwQWAgMBAh4BAheAAAoJEE9OoKrlJnpsQjYD/jW1NlIFAlT6
+                EvF2xfVbkhERii9MapjaUsSso4XLCEmZdEGX54GQ01svXnrivwnd/kmhKvyxCqiN
+                LDY/dOaK8MK//bDI6mqdKmG8XbP2vsdsxhifNC+GH/OwaDPvn1TyYB653kwyruCG
+                FjEnCreZTcRUu2oBQyolORDl+BmF4DjL
+                =R5tk
+                -----END PGP PUBLIC KEY BLOCK-----
+        - role_mod_repositories_apt_repos:
+            - filename: ondrej-ubuntu-php-bionic
+              repo: "deb http://ppa.launchpad.net/ondrej/php/ubuntu {{ role_app_apache2_tmp_apt_distrocodename }} main"
+  when: role_app_apache2_php_version == '7.3'
